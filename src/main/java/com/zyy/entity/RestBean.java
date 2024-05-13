@@ -16,6 +16,14 @@ public record RestBean<T>(int code, T data, String message) {
         return new RestBean<>(code, null, message);
     }
 
+    public static <T> RestBean<T> unauthorized() {
+        return failure(401, "Unauthorized access");
+    }
+
+    public static <T> RestBean<T> wrongPara() {
+        return failure(400, "Wrong parameter");
+    }
+
     public String asJsonString() {
         return JSONObject.toJSONString(this, JSONWriter.Feature.WriteNulls);
     }
