@@ -10,11 +10,12 @@ public class User {
     private String peopleName;
     private String peopleTel;
     private String peopleMail;
+    private String status;
 
     public User() {
     }
 
-    public User(Integer userID, String username, String role, String companyName, String companyIcon, String companyAddress, String peopleName, String peopleTel, String peopleMail) {
+    public User(Integer userID, String username, String role, String companyName, String companyIcon, String companyAddress, String peopleName, String peopleTel, String peopleMail, String status) {
         this.userID = userID;
         this.username = username;
         this.role = role;
@@ -24,6 +25,7 @@ public class User {
         this.peopleName = peopleName;
         this.peopleTel = peopleTel;
         this.peopleMail = peopleMail;
+        this.status = status;
     }
 
     public Integer getUserID() {
@@ -98,6 +100,14 @@ public class User {
         this.peopleMail = peopleMail;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -110,6 +120,7 @@ public class User {
                 ", peopleName='" + peopleName + '\'' +
                 ", peopleTel='" + peopleTel + '\'' +
                 ", peopleMail='" + peopleMail + '\'' +
+                ", status='" + status + '\'' +
                 '}';
     }
 }
