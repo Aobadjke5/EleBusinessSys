@@ -17,7 +17,7 @@ public interface ProductMapper {
     int insertProductDetail(@Param("p") ProductDetail productDetail, @Param("productID") Integer productID);
 
     @Insert("INSERT INTO T_Order(ProDetailName, ProductCnt, TotalPrice, Createtime, AddressID) " +
-            "VALUES(#{proDetailName}, #{productCnt}, #{totalPrice}, #{Createtime}, #{addressID})")
-    @Options(useGeneratedKeys = true, keyProperty = "productName")
-    int insertOrder(Product product);
+            "VALUES(#{proDetailName}, #{productCnt}, #{totalPrice}, #{createTime}, #{addressID})")
+    @Options(useGeneratedKeys = true, keyProperty = "orderID") // 假设Order类中有orderID属性
+    int insertOrder(Order order);
 }

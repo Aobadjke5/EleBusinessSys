@@ -3,6 +3,7 @@ package com.zyy.service.impl;
 import com.zyy.dao.ProductMapper;
 import com.zyy.entity.Product;
 import com.zyy.entity.ProductDetail;
+import com.zyy.entity.Order;
 import com.zyy.service.ProductService;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
@@ -26,6 +27,17 @@ public class ProductServiceImpl implements ProductService {
         for (ProductDetail productDetail : productDetails) {
             productMapper.insertProductDetail(productDetail, productID);
         }
+        return true;
+    }
+    @Transactional
+    public boolean createProductWithOrder(Product product, Order order, Integer orderID) {
+
+        if (!createNewProduct(product, orderID)) {
+            return false;
+        }
+
+        productMapper.insertOrder(order);
+
         return true;
     }
 }
