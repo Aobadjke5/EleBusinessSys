@@ -31,16 +31,31 @@ public class ProductController {
             return RestBean.success();
         return RestBean.failure(500, "Server error, creation failed");
     }
-    @RequestMapping("/purchase")
-    public RestBean<Integer> purchase(@RequestBody Product product) {
-        boolean purchaseSuccess = productService. product(product);
 
-        if (purchaseSuccess) {
-            return RestBean.success(200);
-        } else {
-            return RestBean.failure(400, "购买失败");
+    @RequestMapping("/purchase")
+    public RestBean<Integer> purchase(@RequestBody Product product, HttpServletRequest request) {
+        try {
+            // 从请求中获取账户信息
+            Account account = (Account) request.getAttribute("accountInfo");
+            boolean success = createProductWithOrder(product, account);
+            if (success) {
+                // 购买成功，返回状态码200
+                return RestBean.success(200);
+            } else {
+                // 购买失败，返回状态码400和失败信息
+                return RestBean.failure(400, "购买失败");
+            }
+        } catch (Exception e) {
+            // 处理异常，返回适当的错误响应
+            return RestBean.failure(500, "服务器内部错误: " + e.getMessage());
         }
     }
+
+    private boolean createProductWithOrder(Product product, Account account) {
+        return true;
+    }
 }
+
+
 
 
