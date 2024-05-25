@@ -11,4 +11,6 @@ public interface WarehouseService {
     ArrayList<Warehouse> list();
 
     boolean edit(Warehouse warehouse, Integer userID);
+
+    boolean editVisibility(Integer warehouseID, String option);
 }

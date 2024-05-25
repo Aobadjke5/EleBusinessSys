@@ -28,6 +28,10 @@ public interface WarehouseMapper {
     @Update("update T_Warehouse set WarehouseName = #{w.warehouseName}, WarehouseAddress = #{w.warehouseAddress}, " +
             "WarehouseImage = #{w.warehouseImage}, Status = #{w.status}, TotalCapacity = #{w.totalCapacity}, " +
             "CurrentCapacity = #{w.currentCapacity} " +
-            "where WarehouseID = #{w.warehouseID} and UserID = #{userID}")
+            "where WarehouseID = #{w.warehouseID} and UserID = #{userID};")
     int edit(@Param("w") Warehouse warehouse, @Param("userID") Integer userID);
+
+    @Update("UPDATE T_Warehouse set Status = #{option} " +
+            "where WarehouseID = #{warehouseID};")
+    int editVisibility(@Param("warehouseID")Integer warehouseID,@Param("option") String option);
 }
