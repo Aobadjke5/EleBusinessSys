@@ -11,11 +11,12 @@ public class User {
     private String peopleName;
     private String peopleTel;
     private String peopleMail;
+    private String status;
 
     public User() {
     }
 
-    public User(Integer userID, String username, String role, String companyName, String companyIcon, String companyAddress, String peopleName, String peopleTel, String peopleMail) {
+    public User(Integer userID, String username, String role, String companyName, String companyIcon, String companyAddress, String peopleName, String peopleTel, String peopleMail, String status) {
         this.userID = userID;
         this.userName = username;
         this.role = role;
@@ -25,6 +26,7 @@ public class User {
         this.peopleName = peopleName;
         this.peopleTel = peopleTel;
         this.peopleMail = peopleMail;
+        this.status = status;
     }
 
     public User(Integer userID, String userName, String role, String status, String companyName, String companyIcon, String companyAddress, String peopleName, String peopleTel, String peopleMail) {
@@ -141,6 +143,7 @@ public class User {
                 ", peopleName='" + peopleName + '\'' +
                 ", peopleTel='" + peopleTel + '\'' +
                 ", peopleMail='" + peopleMail + '\'' +
+                ", status='" + status + '\'' +
                 '}';
     }
 }

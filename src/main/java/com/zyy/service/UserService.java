@@ -1,5 +1,6 @@
 package com.zyy.service;
 
+
 import com.zyy.entity.Address;
 import com.zyy.entity.User;
 
@@ -25,3 +26,4 @@ public interface UserService {
 
     ArrayList<Address> addressList(Integer userID);
 }
+

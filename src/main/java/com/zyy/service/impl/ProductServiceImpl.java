@@ -1,6 +1,9 @@
 package com.zyy.service.impl;
 
 import com.zyy.dao.ProductMapper;
+import com.zyy.entity.Product;
+import com.zyy.entity.ProductDetail;
+import com.zyy.entity.Order;
 import com.zyy.entity.*;
 import com.zyy.service.ProductService;
 import jakarta.annotation.Resource;
@@ -27,6 +30,19 @@ public class ProductServiceImpl implements ProductService {
         }
         return true;
     }
+
+    @Transactional
+    public boolean createProductWithOrder(Product product, Order order, Integer orderID) {
+
+        if (!createNewProduct(product, orderID)) {
+            return false;
+        }
+
+        productMapper.insertOrder(order);
+
+        return true;
+    }
+
 
     @Override
     @Transactional
@@ -72,6 +88,5 @@ public class ProductServiceImpl implements ProductService {
         int cnt = productMapper.editVisibility(productID, option);
         return cnt == 1;
     }
-
 }
 

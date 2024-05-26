@@ -1,5 +1,6 @@
 package com.zyy.dao;
 
+import com.zyy.entity.Order;
 import com.zyy.entity.Product;
 import com.zyy.entity.ProductDetail;
 import com.zyy.entity.ProductList;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 @SpringBootTest
 public class ProductTest {
@@ -37,6 +39,14 @@ public class ProductTest {
         productDetail2.setProductCnt(1);
         productDetail2.setProductPrice(1);
 
+        Order order = new Order();
+        order.setProDetailName("1");
+        order.setProductCnt(14);
+        order.setTotalPrice(99.0);
+        long timestamp = 1716349509219L;
+        order.setCreateTime (new Date(timestamp));
+        order.setAddressID(1);
+
         ArrayList<ProductDetail> productDetails = new ArrayList<>();
         productDetails.add(productDetail1);
         productDetails.add(productDetail2);
@@ -44,6 +54,9 @@ public class ProductTest {
         product.setProductDetails(productDetails);
 
         productService.createNewProduct(product, userID);
+
+
+
     }
 
     @Test
