@@ -1,13 +1,29 @@
 package com.zyy.service;
 
+
+import com.zyy.entity.Address;
 import com.zyy.entity.User;
-import java.util.List;
+
+import java.util.ArrayList;
 
 public interface UserService {
 
-    List<User> getVerifiedUsers();
+    ArrayList<User> list();
 
-    List<User> getNoneUsers();
+    ArrayList<User> waitingList();
 
+    boolean verify(Integer userID, String option);
 
+    ArrayList<User> personInfo(Integer userID);
+
+    boolean edit(User user);
+
+    boolean addAddress(Address address);
+
+    boolean delAddress(Integer addressID);
+
+    boolean editAddress(Address address);
+
+    ArrayList<Address> addressList(Integer userID);
 }
+

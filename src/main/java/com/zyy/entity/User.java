@@ -2,8 +2,9 @@ package com.zyy.entity;
 
 public class User {
     private Integer userID;
-    private String username;
+    private String userName;
     private String role;
+    private String Status;
     private String companyName;
     private String companyIcon;
     private String companyAddress;
@@ -17,7 +18,7 @@ public class User {
 
     public User(Integer userID, String username, String role, String companyName, String companyIcon, String companyAddress, String peopleName, String peopleTel, String peopleMail, String status) {
         this.userID = userID;
-        this.username = username;
+        this.userName = username;
         this.role = role;
         this.companyName = companyName;
         this.companyIcon = companyIcon;
@@ -26,6 +27,19 @@ public class User {
         this.peopleTel = peopleTel;
         this.peopleMail = peopleMail;
         this.status = status;
+    }
+
+    public User(Integer userID, String userName, String role, String status, String companyName, String companyIcon, String companyAddress, String peopleName, String peopleTel, String peopleMail) {
+        this.userID = userID;
+        this.userName = userName;
+        this.role = role;
+        Status = status;
+        this.companyName = companyName;
+        this.companyIcon = companyIcon;
+        this.companyAddress = companyAddress;
+        this.peopleName = peopleName;
+        this.peopleTel = peopleTel;
+        this.peopleMail = peopleMail;
     }
 
     public Integer getUserID() {
@@ -37,11 +51,11 @@ public class User {
     }
 
     public String getUsername() {
-        return username;
+        return userName;
     }
 
     public void setUsername(String username) {
-        this.username = username;
+        this.userName = username;
     }
 
     public String getRole() {
@@ -100,20 +114,29 @@ public class User {
         this.peopleMail = peopleMail;
     }
 
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
     public String getStatus() {
-        return status;
+        return Status;
     }
 
     public void setStatus(String status) {
-        this.status = status;
+        Status = status;
     }
 
     @Override
     public String toString() {
         return "User{" +
                 "userID=" + userID +
-                ", username='" + username + '\'' +
+                ", userName='" + userName + '\'' +
                 ", role='" + role + '\'' +
+                ", Status='" + Status + '\'' +
                 ", companyName='" + companyName + '\'' +
                 ", companyIcon='" + companyIcon + '\'' +
                 ", companyAddress='" + companyAddress + '\'' +
