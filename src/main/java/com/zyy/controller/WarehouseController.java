@@ -3,6 +3,7 @@ package com.zyy.controller;
 import com.zyy.entity.Account;
 import com.zyy.entity.RestBean;
 import com.zyy.entity.Warehouse;
+import com.zyy.entity.Visibility;
 import com.zyy.service.WarehouseService;
 import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletRequest;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 @RestController
 @RequestMapping("/api/warehouse")
@@ -32,7 +34,7 @@ public class WarehouseController {
         return RestBean.failure(500, "Server error, creation failed");
     }
 
-    @RequestMapping("manageList")
+    @RequestMapping("/manageList")
     public RestBean<ArrayList<Warehouse>> manageList(HttpServletRequest request){
         Account account = (Account) request.getAttribute("accountInfo");
         if (!account.getRole().equals("Warehouser") || !account.getStatus().equals("Verified"))
@@ -45,7 +47,7 @@ public class WarehouseController {
     @RequestMapping("/list")
     public RestBean<ArrayList<Warehouse>> list(HttpServletRequest request){
         Account account = (Account) request.getAttribute("accountInfo");
-        if (!account.getRole().equals("Warehouser") || !account.getStatus().equals("Verified"))
+        if (!account.getRole().equals("Supplier") || !account.getStatus().equals("Verified"))
             return RestBean.unauthorized();
 
         ArrayList<Warehouse> warehouses = warehouseService.list();
@@ -61,5 +63,25 @@ public class WarehouseController {
         if (warehouseService.edit(warehouse,account.getUserID()))
             return RestBean.success();
         return RestBean.failure(400, "Error, edition failed");
+    }
+
+    @RequestMapping("/editVisibility")
+    public RestBean<String> editVisibility(@RequestBody Visibility visibility, HttpServletRequest request){
+        Account account = (Account) request.getAttribute("accountInfo");
+        if (!account.getRole().equals("Warehouser") || !account.getStatus().equals("Verified"))
+            return RestBean.unauthorized();
+
+        if (Objects.equals(visibility.getOption(), "show")) {
+            if (warehouseService.editVisibility(visibility.getWarehouseID(), "Yes"))
+                return RestBean.success();
+            else
+                return RestBean.failure(400, "edition failure");
+        }
+        else {
+            if (warehouseService.editVisibility(visibility.getWarehouseID(), "No"))
+                return RestBean.success();
+            else
+                return RestBean.failure(400, "edition failure");
+        }
     }
 }

@@ -26,9 +26,10 @@ public class WarehouseServiceImpl implements WarehouseService {
         result = warehouseMapper.manageList(userID);
         return result;
     }
+
     @Override
     public ArrayList<Warehouse> list(){
-        ArrayList result;
+        ArrayList<Warehouse> result;
         result = warehouseMapper.list();
         return result;
     }
@@ -36,6 +37,12 @@ public class WarehouseServiceImpl implements WarehouseService {
     @Override
     public boolean edit(Warehouse warehouse, Integer userID) {
         int cnt = warehouseMapper.edit(warehouse, userID);
+        return cnt == 1;
+    }
+
+    @Override
+    public boolean editVisibility(Integer warehouseID, String option){
+        int cnt = warehouseMapper.editVisibility(warehouseID, option);
         return cnt == 1;
     }
 }

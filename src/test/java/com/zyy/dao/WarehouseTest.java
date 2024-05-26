@@ -55,4 +55,10 @@ public class WarehouseTest {
         int num = warehouseMapper.edit(warehouse,UserID);
         System.out.println(num);
     }
+
+    @Test
+    public void editVisibility(){
+        if (warehouseMapper.editVisibility(10,"No") == 1)
+            System.out.println("Success");
+    }
 }
