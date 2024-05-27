@@ -14,7 +14,23 @@ public class WarehouseTest {
     WarehouseMapper warehouseMapper;
 
     @Test
-    public void createNewWarehouse() {
+    public void getWarehouseListByIDTest() {
+        ArrayList<Warehouse> warehouses = warehouseMapper.getWarehouseListByID(16);
+        for (Warehouse warehouse : warehouses) {
+            System.out.println(warehouse);
+        }
+    }
+
+    @Test
+    public void getWarehouseListTest() {
+        ArrayList<Warehouse> warehouses = warehouseMapper.getWarehouseList();
+        for (Warehouse warehouse : warehouses) {
+            System.out.println(warehouse);
+        }
+    }
+
+    @Test
+    public void createNewWarehouseTest() {
         Integer userID = 1;
         Warehouse warehouse = new Warehouse();
         warehouse.setWarehouseName("仓库1");
@@ -29,36 +45,37 @@ public class WarehouseTest {
     }
 
     @Test
-    public void manageList(){
-        ArrayList<Warehouse> temp;
-        temp = warehouseMapper.manageList(16);
-        System.out.println(temp);
-    }
-
-    @Test
-    public void list(){
-        ArrayList<Warehouse> temp;
-        temp = warehouseMapper.list();
-        System.out.println(temp);
-    }
-    @Test
-    public void edit(){
-        Integer UserID = 16;
+    public void editWarehouseTest() {
         Warehouse warehouse = new Warehouse();
-        warehouse.setWarehouseID(7);
-        warehouse.setWarehouseName("上海市第一仓库");
-        warehouse.setWarehouseAddress("test_address");
-        warehouse.setWarehouseImage("/testUrl");
-        warehouse.setStatus("Yes");
-        warehouse.setTotalCapacity(123);
-        warehouse.setCurrentCapacity(123);
-        int num = warehouseMapper.edit(warehouse,UserID);
+        warehouse.setWarehouseName("新仓库");
+        warehouse.setWarehouseAddress("1");
+        warehouse.setWarehouseImage("1");
+        warehouse.setTotalCapacity(100);
+        warehouse.setCurrentCapacity(21);
+        warehouse.setWarehouseID(14);
+
+        int num = warehouseMapper.editWarehouse(warehouse);
         System.out.println(num);
     }
 
     @Test
-    public void editVisibility(){
-        if (warehouseMapper.editVisibility(10,"No") == 1)
-            System.out.println("Success");
+    public void getWarehouseByIDTest() {
+        Integer warehouseID = 14;
+        Warehouse warehouse = warehouseMapper.getWarehouseByID(warehouseID);
+        System.out.println(warehouse);
+    }
+
+    @Test
+    public void editVisibilityYesTest() {
+        Integer warehouseID = 14;
+        int num = warehouseMapper.editVisibilityYes(warehouseID);
+        System.out.println(num);
+    }
+
+    @Test
+    public void editVisibilityNoTest() {
+        Integer warehouseID = 14;
+        int num = warehouseMapper.editVisibilityNo(warehouseID);
+        System.out.println(num);
     }
 }

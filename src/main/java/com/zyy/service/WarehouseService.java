@@ -6,11 +6,11 @@ import java.util.ArrayList;
 public interface WarehouseService {
     boolean createNewWarehouse(Warehouse warehouse, Integer userID);
 
-    ArrayList<Warehouse> manageList(Integer userID);
+    ArrayList<Warehouse> getMyWarehouseList(Integer userID);
 
-    ArrayList<Warehouse> list();
+    ArrayList<Warehouse> getWarehouseList();
 
-    boolean edit(Warehouse warehouse, Integer userID);
+    Warehouse editWarehouse(Warehouse warehouse);
 
-    boolean editVisibility(Integer warehouseID, String option);
+    Warehouse editVisibility(Integer warehouseID, String option);
 }

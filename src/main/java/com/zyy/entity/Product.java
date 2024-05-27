@@ -11,6 +11,8 @@ public class Product {
     private Integer warehouseID;
     private String status;
     private ArrayList<ProductDetail> productDetails;
+    private User companyInfo;
+    private Warehouse warehouseInfo;
 
     public boolean verifyParam() {
         if (this.productName == null || this.productImage == null || this.warehouseID == null ||
@@ -28,7 +30,7 @@ public class Product {
     public Product() {
     }
 
-    public Product(Integer productID, String productName, String productImage, Integer userID, Integer warehouseID, String status, ArrayList<ProductDetail> productDetails) {
+    public Product(Integer productID, String productName, String productImage, Integer userID, Integer warehouseID, String status, ArrayList<ProductDetail> productDetails, User companyInfo, Warehouse warehouseInfo) {
         this.productID = productID;
         this.productName = productName;
         this.productImage = productImage;
@@ -36,6 +38,8 @@ public class Product {
         this.warehouseID = warehouseID;
         this.status = status;
         this.productDetails = productDetails;
+        this.companyInfo = companyInfo;
+        this.warehouseInfo = warehouseInfo;
     }
 
     public Integer getProductID() {
@@ -94,6 +98,22 @@ public class Product {
         this.productDetails = productDetails;
     }
 
+    public User getCompanyInfo() {
+        return companyInfo;
+    }
+
+    public void setCompanyInfo(User companyInfo) {
+        this.companyInfo = companyInfo;
+    }
+
+    public Warehouse getWarehouseInfo() {
+        return warehouseInfo;
+    }
+
+    public void setWarehouseInfo(Warehouse warehouseInfo) {
+        this.warehouseInfo = warehouseInfo;
+    }
+
     @Override
     public String toString() {
         return "Product{" +
@@ -104,6 +124,8 @@ public class Product {
                 ", warehouseID=" + warehouseID +
                 ", status='" + status + '\'' +
                 ", productDetails=" + productDetails +
+                ", companyInfo=" + companyInfo +
+                ", warehouseInfo=" + warehouseInfo +
                 '}';
     }
 }

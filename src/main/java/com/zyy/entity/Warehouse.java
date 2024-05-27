@@ -8,6 +8,8 @@ public class Warehouse {
     private String status;
     private Integer currentCapacity;
     private Integer totalCapacity;
+    private User companyInfo;
+    private Integer userID;
 
     public boolean verifyParam() {
         if (this.warehouseName == null || this.warehouseAddress == null || this.warehouseImage == null ||
@@ -17,16 +19,6 @@ public class Warehouse {
     }
 
     public Warehouse() {
-    }
-
-    public Warehouse(Integer warehouseID, String warehouseName, String warehouseAddress, String warehouseImage, String status, Integer currentCapacity, Integer totalCapacity) {
-        this.warehouseID = warehouseID;
-        this.warehouseName = warehouseName;
-        this.warehouseAddress = warehouseAddress;
-        this.warehouseImage = warehouseImage;
-        this.status = status;
-        this.currentCapacity = currentCapacity;
-        this.totalCapacity = totalCapacity;
     }
 
     public Integer getWarehouseID() {
@@ -85,6 +77,22 @@ public class Warehouse {
         this.totalCapacity = totalCapacity;
     }
 
+    public User getCompanyInfo() {
+        return companyInfo;
+    }
+
+    public void setCompanyInfo(User companyInfo) {
+        this.companyInfo = companyInfo;
+    }
+
+    public Integer getUserID() {
+        return userID;
+    }
+
+    public void setUserID(Integer userID) {
+        this.userID = userID;
+    }
+
     @Override
     public String toString() {
         return "Warehouse{" +
@@ -95,6 +103,8 @@ public class Warehouse {
                 ", status='" + status + '\'' +
                 ", currentCapacity=" + currentCapacity +
                 ", totalCapacity=" + totalCapacity +
+                ", companyInfo=" + companyInfo +
+                ", userID=" + userID +
                 '}';
     }
 }

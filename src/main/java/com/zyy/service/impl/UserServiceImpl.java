@@ -3,16 +3,8 @@ package com.zyy.service.impl;
 import com.zyy.dao.UserMapper;
 import com.zyy.entity.User;
 import com.zyy.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
-
-import com.zyy.entity.Address;
-import com.zyy.entity.User;
-import com.zyy.service.UserService;
 import jakarta.annotation.Resource;
-import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 
@@ -22,56 +14,23 @@ public class UserServiceImpl implements UserService {
     private UserMapper userMapper;
 
     @Override
-    public ArrayList<User> list(){
-        ArrayList<User> users;
-        users = userMapper.list();
-        return users;
+    public ArrayList<User> getList() {
+        return userMapper.getUserList();
     }
 
     @Override
-    public ArrayList<User> waitingList(){
-        ArrayList<User> users;
-        users = userMapper.waitingList();
-        return users;
+    public ArrayList<User> getWaitingList() {
+        return userMapper.getWaitingUserList();
     }
 
     @Override
     public boolean verify(Integer userID, String option){
-        int cnt = userMapper.verify(userID, option);
-        return cnt == 1;
-    }
-
-    @Override
-    public ArrayList<User> personInfo(Integer userID){
-        ArrayList<User> personinfo ;
-        personinfo = userMapper.personInfo(userID);
-        return personinfo;
-    }
-    @Override
-    public boolean edit(User user){
-        int cnt = userMapper.edit(user);
-        return cnt == 1;
-    }
-    @Override
-    public boolean addAddress(Address address){
-        int cnt = userMapper.addAddress(address);
-        return cnt == 1;
-    }
-    @Override
-    public boolean delAddress(Integer addressID){
-        int cnt = userMapper.delAddress(addressID);
-        return cnt == 1;
-    }
-    @Override
-    public boolean editAddress(Address address){
-        int cnt = userMapper.editAddress(address);
-        return cnt == 1;
-    }
-    @Override
-    public ArrayList<Address> addressList(Integer userID){
-        ArrayList<Address> addresses;
-        addresses = userMapper.addressList(userID);
-        return addresses;
+        int num = -1;
+        if (option.equals("forbidden"))
+            num = userMapper.verifyForbidden(userID);
+        if (option.equals("pass"))
+            num = userMapper.verifyPass(userID);
+        return num == 1;
     }
 }
 

@@ -17,21 +17,31 @@ public interface WarehouseMapper {
             "WarehouseAddress as WarehouseAddress, WarehouseImage as warehouseImage, " +
             "Status as status, TotalCapacity as totalCapacity, CurrentCapacity as currentCapacity " +
             "from T_Warehouse where UserID = #{userID};" )
-    ArrayList<Warehouse> manageList(@Param("userID") Integer userID);
+    ArrayList<Warehouse> getWarehouseListByID(@Param("userID") Integer userID);
 
     @Select("select WarehouseID as warehouseID, WarehouseName as warehouseName, " +
             "WarehouseAddress as warehouseAddress, WarehouseImage as warehouseImage, " +
+            "Status as status, TotalCapacity as totalCapacity, CurrentCapacity as currentCapacity," +
+            "UserID as userID " +
+            "from T_Warehouse WHERE Status = 'Yes';" )
+    ArrayList<Warehouse> getWarehouseList();
+
+    @Select("select WarehouseID as warehouseID, WarehouseName as warehouseName, " +
+            "WarehouseAddress as WarehouseAddress, WarehouseImage as warehouseImage, " +
             "Status as status, TotalCapacity as totalCapacity, CurrentCapacity as currentCapacity " +
-            "from T_Warehouse;" )
-    ArrayList<Warehouse> list();
+            "from T_Warehouse where WarehouseID = #{warehouseID};" )
+    Warehouse getWarehouseByID(@Param("warehouseID") Integer warehouseID);
 
     @Update("update T_Warehouse set WarehouseName = #{w.warehouseName}, WarehouseAddress = #{w.warehouseAddress}, " +
-            "WarehouseImage = #{w.warehouseImage}, Status = #{w.status}, TotalCapacity = #{w.totalCapacity}, " +
+            "WarehouseImage = #{w.warehouseImage}, TotalCapacity = #{w.totalCapacity}, " +
             "CurrentCapacity = #{w.currentCapacity} " +
-            "where WarehouseID = #{w.warehouseID} and UserID = #{userID};")
-    int edit(@Param("w") Warehouse warehouse, @Param("userID") Integer userID);
+            "where WarehouseID = #{w.warehouseID};")
+    int editWarehouse(@Param("w") Warehouse warehouse);
 
-    @Update("UPDATE T_Warehouse set Status = #{option} " +
+    @Update("UPDATE T_Warehouse set Status = 'Yes' " +
             "where WarehouseID = #{warehouseID};")
-    int editVisibility(@Param("warehouseID")Integer warehouseID,@Param("option") String option);
+    int editVisibilityYes(@Param("warehouseID")Integer warehouseID);
+    @Update("UPDATE T_Warehouse set Status = 'No' " +
+            "where WarehouseID = #{warehouseID};")
+    int editVisibilityNo(@Param("warehouseID")Integer warehouseID);
 }

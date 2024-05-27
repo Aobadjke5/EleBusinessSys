@@ -1,45 +1,33 @@
 package com.zyy.entity;
 
 public class Address {
-    private String addressID;
-    private String userid;
+    private Integer addressID;
     private String addressDetail;
     private String peopleName;
     private String peopleTel;
-    private String status;
-    private Boolean isDeleted; // 逻辑删除标记字段
 
-    // 全参构造方法
-    public Address(String addressID, String userid, String addressDetail, String peopleName, String peopleTel, String status, Boolean isDeleted) {
+    public Address() {
+    }
+
+    public Address(Integer addressID, String addressDetail, String peopleName, String peopleTel) {
         this.addressID = addressID;
-        this.userid = userid;
         this.addressDetail = addressDetail;
         this.peopleName = peopleName;
         this.peopleTel = peopleTel;
-        this.status = status;
-        this.isDeleted = isDeleted;
     }
 
-    // 无参构造方法
-    public Address() {
-        this.isDeleted = false; // 默认设置为未删除状态
+    public Address(String addressDetail, String peopleName, String peopleTel) {
+        this.addressDetail = addressDetail;
+        this.peopleName = peopleName;
+        this.peopleTel = peopleTel;
     }
 
-    // Getter 和 Setter 方法
-    public String getAddressID() {
+    public Integer getAddressID() {
         return addressID;
     }
 
-    public void setAddressID(String addressID) {
+    public void setAddressID(Integer addressID) {
         this.addressID = addressID;
-    }
-
-    public String getUserid() {
-        return userid;
-    }
-
-    public void setUserid(String userid) {
-        this.userid = userid;
     }
 
     public String getAddressDetail() {
@@ -66,31 +54,13 @@ public class Address {
         this.peopleTel = peopleTel;
     }
 
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public Boolean getIsDeleted() {
-        return isDeleted;
-    }
-
-    public void setIsDeleted(Boolean isDeleted) {
-        this.isDeleted = isDeleted;
-    }
     @Override
     public String toString() {
         return "Address{" +
                 "addressID='" + addressID + '\'' +
-                ", userid='" + userid + '\'' +
                 ", addressDetail='" + addressDetail + '\'' +
                 ", peopleName='" + peopleName + '\'' +
                 ", peopleTel='" + peopleTel + '\'' +
-                ", status='" + status + '\'' +
-                ", isDeleted=" + isDeleted +
                 '}';
     }
 }

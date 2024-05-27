@@ -1,24 +1,17 @@
 package com.zyy.service;
 
-import com.zyy.entity.Order;
 import com.zyy.entity.Product;
-import com.zyy.entity.ProductDetail;
-import com.zyy.entity.ProductList;
 
 import java.util.ArrayList;
 
 public interface ProductService {
     boolean createNewProduct(Product product, Integer userID);
 
+    ArrayList<Product> getProductList();
 
-    boolean createProductWithOrder(Product product, Order order, Integer orderID);
+    Product editProduct(Product product);
 
-    ArrayList<ProductList> list();
+    ArrayList<Product> getMyProductList(Integer userID);
 
-    boolean editProduct(Product product);
-
-    ArrayList<ProductList> mylist(Integer userID);
-
-    boolean editVisibility(Integer productID, String option);
-
+    Product editVisibility(Integer productID, String option);
 }
