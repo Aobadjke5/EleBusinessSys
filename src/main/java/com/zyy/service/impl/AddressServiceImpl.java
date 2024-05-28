@@ -42,4 +42,9 @@ public class AddressServiceImpl implements AddressService {
             return address;
         return null;
     }
+
+    @Override
+    public Address getDefaultAddress(Integer userID) {
+        return addressMapper.getDefaultAddress(userID);
+    }
 }

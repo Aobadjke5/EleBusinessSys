@@ -40,4 +40,11 @@ public class AddressTest {
         int num = addressMapper.editAddress(address);
         System.out.println(num);
     }
+
+    @Test
+    public void getDefaultAddressTest() {
+        Integer userID = 61;
+        Address address = addressMapper.getDefaultAddress(userID);
+        System.out.println(address);
+    }
 }

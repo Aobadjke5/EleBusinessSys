@@ -13,6 +13,41 @@ public class UserTest {
     UserMapper userMapper;
 
     @Test
+    public void updateCompanyInfoTest() {
+        String companyName = "1";
+        String companyAddress = "1";
+        String role = "Warehouser";
+        Integer userID = 42;
+        int num = userMapper.updateCompanyInfo(role, companyName, companyAddress, userID);
+        System.out.println(num);
+    }
+
+    @Test
+    public void updateCompanyIconTest() {
+        String companyIcon = "1";
+        Integer userID = 42;
+        int num = userMapper.updateCompanyIcon(companyIcon, userID);
+        System.out.println(num);
+    }
+
+    @Test
+    public void updatePeopleInfoTest() {
+        String peopleName = "1";
+        String peopleTel = "2";
+        String peopleMail = "3";
+        Integer userID = 42;
+        int num = userMapper.updatePeopleInfo(peopleName, peopleTel, peopleMail, userID);
+        System.out.println(num);
+    }
+
+    @Test
+    public void getVerifyTest() {
+        Integer userID = 42;
+        int num = userMapper.getVerify(userID);
+        System.out.println(num);
+    }
+
+    @Test
     public void getUserListTest() {
         ArrayList<User> users = userMapper.getUserList();
         for (User user : users) {

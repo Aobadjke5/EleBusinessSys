@@ -19,8 +19,6 @@ public class CenterController {
     @RequestMapping("/personInfo")
     public RestBean<User> personInfo(HttpServletRequest request) {
         Account account = (Account) request.getAttribute("accountInfo");
-        if (!account.getStatus().equals("Verified"))
-            return RestBean.unauthorized();
 
         User userInfo = centerService.getUserInfoByID(account.getUserID());
         return RestBean.success(userInfo);

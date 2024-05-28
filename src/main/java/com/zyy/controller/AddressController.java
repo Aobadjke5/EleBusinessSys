@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 @RestController
 @RequestMapping("/api/center")
@@ -48,6 +49,16 @@ public class AddressController {
 
         ArrayList<Address> addresses = addressService.getAddressList(account.getUserID());
         return RestBean.success(new AddressListRestBean(addresses));
+    }
+
+    @RequestMapping("/defaultAddress")
+    public RestBean<AddressRestBean> defaultAddress(HttpServletRequest request) {
+        Account account = (Account) request.getAttribute("accountInfo");
+        if (!account.getRole().equals("Dealer") || !account.getStatus().equals("Verified"))
+            return RestBean.unauthorized();
+
+        Address address = addressService.getDefaultAddress(account.getUserID());
+        return RestBean.success(new AddressRestBean(Objects.requireNonNullElseGet(address, Address::new)));
     }
 
     @RequestMapping("/addAddress")

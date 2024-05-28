@@ -12,6 +12,11 @@ public interface AddressMapper {
             "from T_Address where UserID = #{userID} AND Status = 'Yes'")
     ArrayList<Address> getAddressList(@Param("userID") Integer userID);
 
+    @Select("Select AddressID as addressID, AddressDetail as addressDetail, " +
+            "PeopleName as peopleName, PeopleTel as peopleTel " +
+            "from T_Address where UserID = #{userID} AND Status = 'Yes' LIMIT 1")
+    Address getDefaultAddress(@Param("userID") Integer userID);
+
     @Insert("INSERT INTO T_Address (UserID, AddressDetail, PeopleName, PeopleTel, Status) " +
             "VALUES (#{userID}, #{a.addressDetail}, #{a.peopleName}, #{a.peopleTel}, 'Yes')")
     @Options(useGeneratedKeys = true, keyProperty = "a.addressID")
