@@ -1,10 +1,6 @@
 package com.zyy.controller;
 
-
-import com.zyy.entity.Account;
-import com.zyy.entity.Product;
-import com.zyy.entity.RestBean;
-import com.zyy.entity.Order;
+import com.zyy.entity.*;
 import com.zyy.service.ProductService;
 import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletRequest;
@@ -12,10 +8,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-
-import javax.swing.border.Border;
 import java.util.ArrayList;
-import java.util.Objects;
 
 
 @RestController
@@ -23,6 +16,28 @@ import java.util.Objects;
 public class ProductController {
     @Resource
     ProductService productService;
+
+    public static class ProductListRestBean {
+        public ArrayList<Product> productList;
+
+        public ProductListRestBean() {
+        }
+
+        public ProductListRestBean(ArrayList<Product> productList) {
+            this.productList = productList;
+        }
+    }
+
+    public static class ProductRestBean {
+        public Product product;
+
+        public ProductRestBean() {
+        }
+
+        public ProductRestBean(Product newProduct) {
+            this.product = newProduct;
+        }
+    }
 
     @RequestMapping("/create")
     public RestBean<String> create(@RequestBody Product product, HttpServletRequest request) {
@@ -34,85 +49,72 @@ public class ProductController {
 
         if (productService.createNewProduct(product, account.getUserID()))
             return RestBean.success();
-        return RestBean.failure(500, "Server error, creation failed");
-    }
-
-
-    @RequestMapping("/purchase")
-    public RestBean<Integer> purchase(@RequestBody Product product, HttpServletRequest request) {
-        try {
-            // 从请求中获取账户信息
-            Account account = (Account) request.getAttribute("accountInfo");
-            boolean success = createProductWithOrder(product, account);
-            if (success) {
-                // 购买成功，返回状态码200
-                return RestBean.success(200);
-            } else {
-                // 购买失败，返回状态码400和失败信息
-                return RestBean.failure(400, "购买失败");
-            }
-        } catch (Exception e) {
-            // 处理异常，返回适当的错误响应
-            return RestBean.failure(500, "服务器内部错误: " + e.getMessage());
-        }
-    }
-
-    private boolean createProductWithOrder(Product product, Account account) {
-        return true;
+        return RestBean.failure(400, "Operation failure");
     }
 
     @RequestMapping("/edit")
-    public RestBean<String> edit(@RequestBody Product product, HttpServletRequest request) {
+    public RestBean<ProductRestBean> edit(@RequestBody Product product, HttpServletRequest request) {
         Account account = (Account) request.getAttribute("accountInfo");
-        if (!account.getRole().equals("Supplier") || !account.getStatus().equals("Verified"))
+        if (!(account.getRole().equals("Supplier") && account.getStatus().equals("Verified")))
             return RestBean.unauthorized();
 
-        if (productService.editProduct(product))
-            return RestBean.success();
-        return RestBean.failure(400, "edition failure");
+        Product product1 = productService.editProduct(product);
+        return RestBean.success(new ProductRestBean(product1));
     }
 
     @RequestMapping("/list")
-    public RestBean<ArrayList<ProductList>> list(HttpServletRequest request){
+    public RestBean<ProductListRestBean> list(HttpServletRequest request){
         Account account = (Account) request.getAttribute("accountInfo");
-        if (!(account.getRole().equals("Supplier") || account.getRole().equals("Admin") )|| ! account.getStatus().equals("Verified"))
+        if (!(account.getRole().equals("Dealer") && account.getStatus().equals("Verified")))
             return RestBean.unauthorized();
 
-        ArrayList<ProductList> productLists = productService.list();
-        return RestBean.success(productLists);
+        ArrayList<Product> productLists = productService.getProductList();
+        return RestBean.success(new ProductListRestBean(productLists));
     }
 
-    @RequestMapping("/mylist")
-    public RestBean<ArrayList<ProductList>> mylist(HttpServletRequest request){
+    @RequestMapping("/manageList")
+    public RestBean<ProductListRestBean> manageList(HttpServletRequest request){
         Account account = (Account) request.getAttribute("accountInfo");
-        if (!(account.getRole().equals("Supplier") || account.getRole().equals("Admin") )|| ! account.getStatus().equals("Verified"))
+        if (!(account.getRole().equals("Supplier") && account.getStatus().equals("Verified")))
             return RestBean.unauthorized();
 
-        ArrayList<ProductList> mylists = productService.mylist(account.getUserID());
-        return RestBean.success(mylists);
+        ArrayList<Product> myProductList = productService.getMyProductList(account.getUserID());
+        return RestBean.success(new ProductListRestBean(myProductList));
+    }
+
+    public static class RequestParam1 {
+        public Integer productID;
+        public String option;
+
+        public RequestParam1() {
+        }
     }
 
     @RequestMapping("/editVisibility")
-    public RestBean<String> editVisibility(@RequestBody Visibility visibility, HttpServletRequest request){
+    public RestBean<ProductRestBean> editVisibility(@RequestBody RequestParam1 requestParam1, HttpServletRequest request){
+        Integer productID = requestParam1.productID;
+        String option = requestParam1.option;
+
         Account account = (Account) request.getAttribute("accountInfo");
-        if (!account.getRole().equals("Supplier") || !account.getStatus().equals("Verified"))
+        if (!(account.getRole().equals("Supplier") && account.getStatus().equals("Verified")))
             return RestBean.unauthorized();
 
-        if (Objects.equals(visibility.getOption(), "show")) {
-            if (productService.editVisibility(visibility.getProductID(), "Yes"))
-                return RestBean.success();
-            else
-                return RestBean.failure(400, "edition failure");
+        if (!option.equals("show") && !option.equals("hidden")) {
+            return RestBean.wrongPara();
         }
-        else {
-            if (productService.editVisibility(visibility.getProductID(), "No"))
-                return RestBean.success();
-            else
-                return RestBean.failure(400, "edition failure");
-        }
+
+        Product product = productService.editVisibility(productID, option);
+        if (product != null)
+            return RestBean.success(new ProductRestBean(product));
+        return RestBean.failure(400, "Operation failure");
     }
+
+//    @RequestMapping("/purchase")
+//    public RestBean<String> purchase(@RequestBody PurchaseProduct purchase, HttpServletRequest request) {
+//        Account account = (Account) request.getAttribute("accountInfo");
+//        if (!(account.getRole().equals("Dealer") && account.getStatus().equals("Verified")))
+//            return RestBean.unauthorized();
+//
+//
+//    }
 }
-
-
-
-

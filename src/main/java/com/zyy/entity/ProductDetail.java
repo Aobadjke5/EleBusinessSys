@@ -6,7 +6,7 @@ public class ProductDetail {
     private String productName;
     private String productImage;
     private Integer productCnt;
-    private Integer productPrice;
+    private Double productPrice;
 
     public boolean verifyParam() {
         return this.productName != null && this.productImage != null &&
@@ -16,7 +16,7 @@ public class ProductDetail {
     public ProductDetail() {
     }
 
-    public ProductDetail(Integer proDetailID, Integer productID, String productName, String productImage, Integer productCnt, Integer productPrice) {
+    public ProductDetail(Integer proDetailID, Integer productID, String productName, String productImage, Integer productCnt, Double productPrice) {
         this.proDetailID = proDetailID;
         this.productID = productID;
         this.productName = productName;
@@ -65,11 +65,11 @@ public class ProductDetail {
         this.productCnt = productCnt;
     }
 
-    public Integer getProductPrice() {
+    public Double getProductPrice() {
         return productPrice;
     }
 
-    public void setProductPrice(Integer productPrice) {
+    public void setProductPrice(Double productPrice) {
         this.productPrice = productPrice;
     }
 

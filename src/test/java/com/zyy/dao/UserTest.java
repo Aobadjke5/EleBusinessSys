@@ -1,11 +1,9 @@
 package com.zyy.dao;
 
 import com.zyy.entity.User;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-
 
 import java.util.ArrayList;
 
@@ -15,27 +13,74 @@ public class UserTest {
     UserMapper userMapper;
 
     @Test
-    public void list(){
-        System.out.println(userMapper.list());
+    public void updateCompanyInfoTest() {
+        String companyName = "1";
+        String companyAddress = "1";
+        String role = "Warehouser";
+        Integer userID = 42;
+        int num = userMapper.updateCompanyInfo(role, companyName, companyAddress, userID);
+        System.out.println(num);
     }
 
     @Test
-    public void waitingList(){
-        System.out.println(userMapper.waitingList());
-    }
-    @Test
-    public void verify(){
-        Integer userID = 23;
-        int num = userMapper.verify(userID,"Verified");
+    public void updateCompanyIconTest() {
+        String companyIcon = "1";
+        Integer userID = 42;
+        int num = userMapper.updateCompanyIcon(companyIcon, userID);
         System.out.println(num);
     }
+
     @Test
-    public void personInfo(){
-        System.out.println(userMapper.personInfo(18));
+    public void updatePeopleInfoTest() {
+        String peopleName = "1";
+        String peopleTel = "2";
+        String peopleMail = "3";
+        Integer userID = 42;
+        int num = userMapper.updatePeopleInfo(peopleName, peopleTel, peopleMail, userID);
+        System.out.println(num);
     }
+
     @Test
-    public void edit(){
-        if((userMapper.edit()) == 1)
-            System.out.println("Success");
+    public void getVerifyTest() {
+        Integer userID = 42;
+        int num = userMapper.getVerify(userID);
+        System.out.println(num);
+    }
+
+    @Test
+    public void getUserListTest() {
+        ArrayList<User> users = userMapper.getUserList();
+        for (User user : users) {
+            System.out.println(user);
+        }
+    }
+
+    @Test
+    public void getWaitingUserListTest() {
+        ArrayList<User> users = userMapper.getWaitingUserList();
+        for (User user : users) {
+            System.out.println(user);
+        }
+    }
+
+    @Test
+    public void verifyPassTest() {
+        Integer userID = 16;
+        int num = userMapper.verifyPass(userID);
+        System.out.println(num);
+    }
+
+    @Test
+    public void ForbiddenPassTest() {
+        Integer userID = 18;
+        int num = userMapper.verifyForbidden(userID);
+        System.out.println(num);
+    }
+
+    @Test
+    public void getUserInfoByIDTest() {
+        Integer userID = 16;
+        User user = userMapper.getUserInfoByID(userID);
+        System.out.println(user);
     }
 }
