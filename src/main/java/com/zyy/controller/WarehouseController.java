@@ -66,7 +66,7 @@ public class WarehouseController {
     @RequestMapping("/list")
     public RestBean<WarehouseListRestBean> list(HttpServletRequest request){
         Account account = (Account) request.getAttribute("accountInfo");
-        if (!account.getRole().equals("Warehouser") || !account.getStatus().equals("Verified"))
+        if (!account.getRole().equals("Supplier") || !account.getStatus().equals("Verified"))
             return RestBean.unauthorized();
 
         ArrayList<Warehouse> warehouses = warehouseService.getWarehouseList();
