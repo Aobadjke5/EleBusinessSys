@@ -30,4 +30,13 @@ public class CenterTest {
         int num = centerMapper.editUserInfo(user, 28);
         System.out.println(num);
     }
+
+    @Test
+    public void editAdminInfoTest() {
+        User user = new User();
+        user.setCompanyName("测试Admin");
+        user.setCompanyIcon("/api/img/company/538dee83aa13df9ea31879d9c58b43bb");
+        int num = centerMapper.editAdminInfo(user, 59);
+        System.out.println(num);
+    }
 }

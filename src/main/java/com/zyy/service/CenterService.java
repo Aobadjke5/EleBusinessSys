@@ -6,4 +6,6 @@ public interface CenterService {
     User getUserInfoByID(Integer userID);
 
     User editUserInfo(User userInfo, Integer userID);
+
+    User editAdminInfo(User userInfo, Integer userID);
 }

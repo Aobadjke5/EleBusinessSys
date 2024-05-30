@@ -26,4 +26,12 @@ public class CenterServiceImpl implements CenterService {
         }
         return null;
     }
+
+    @Override
+    public User editAdminInfo(User userInfo, Integer userID) {
+        int num = centerMapper.editAdminInfo(userInfo, userID);
+        if (num == 1)
+            return this.getUserInfoByID(userID);
+        return null;
+    }
 }

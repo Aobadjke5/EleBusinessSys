@@ -19,4 +19,8 @@ public interface CenterMapper {
             "PeopleName = #{u.peopleName}, PeopleTel = #{u.peopleTel}, PeopleMail = #{u.peopleMail} " +
             "where UserID = #{userID} ")
     int editUserInfo(@Param("u") User user, @Param("userID") Integer userID);
+
+    @Update("UPDATE T_User set CompanyName = #{u.companyName}, CompanyIcon = #{u.companyIcon} " +
+            "where UserID = #{userID} ")
+    int editAdminInfo(@Param("u") User user, @Param("userID") Integer userID);
 }

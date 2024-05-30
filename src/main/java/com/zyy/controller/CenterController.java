@@ -38,4 +38,16 @@ public class CenterController {
         }
         return RestBean.failure(400, "Operation failure");
     }
+
+    @RequestMapping("/adminEdit")
+    public RestBean<User> adminEdit(@RequestBody User user, HttpServletRequest request) {
+        Account account = (Account) request.getAttribute("accountInfo");
+        if (!account.getStatus().equals("Verified") || !account.getRole().equals("Admin"))
+            return RestBean.unauthorized();
+
+        User newUser = centerService.editAdminInfo(user, account.getUserID());
+        if (newUser != null)
+            return RestBean.success(newUser);
+        return RestBean.failure(400, "Operation failure");
+    }
 }
