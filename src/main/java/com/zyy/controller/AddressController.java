@@ -98,7 +98,7 @@ public class AddressController {
         if (!account.getRole().equals("Dealer") || !account.getStatus().equals("Verified"))
             return RestBean.unauthorized();
 
-        Address address1 = addressService.editAddress(address);
+        Address address1 = addressService.editAddress(address, account.getUserID());
         if (address1 != null)
             return RestBean.success(new AddressRestBean(address1));
         return RestBean.failure(400, "Operation failure");

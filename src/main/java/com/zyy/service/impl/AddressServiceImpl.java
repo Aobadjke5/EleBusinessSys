@@ -36,11 +36,20 @@ public class AddressServiceImpl implements AddressService {
     }
 
     @Override
-    public Address editAddress(Address address) {
-        int num = addressMapper.editAddress(address);
-        if (num == 1)
-            return address;
-        return null;
+    @Transactional
+    public Address editAddress(Address address, Integer userID) {
+        int num = addressMapper.hadAddressUsed(address.getAddressID());
+        if (num == 0) {
+            int cnt = addressMapper.editAddress(address);
+            if (cnt == 1)
+                return address;
+            return null;
+        } else {
+            int cnt = addressMapper.deleteAddress(address.getAddressID());
+            if (cnt == 0)
+                return null;
+            return this.createNewAddress(address, userID);
+        }
     }
 
     @Override

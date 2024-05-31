@@ -29,4 +29,7 @@ public interface AddressMapper {
             "PeopleName = #{a.peopleName}, PeopleTel = #{a.peopleTel} " +
             "where AddressID = #{a.addressID} AND Status = 'Yes';")
     int editAddress(@Param("a")Address address);
+
+    @Select("SELECT count(*) from T_Order where AddressID = #{addressID};")
+    int hadAddressUsed(@Param("addressID") Integer addressID);
 }

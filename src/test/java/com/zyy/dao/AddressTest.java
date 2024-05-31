@@ -47,4 +47,11 @@ public class AddressTest {
         Address address = addressMapper.getDefaultAddress(userID);
         System.out.println(address);
     }
+
+    @Test
+    public void hadAddressUsedTest() {
+        Integer addressID = 23;
+        int num = addressMapper.hadAddressUsed(addressID);
+        System.out.println(num);
+    }
 }

@@ -11,7 +11,7 @@ public interface AddressService {
 
     boolean deleteAddress(Integer addressID);
 
-    Address editAddress(Address address);
+    Address editAddress(Address address, Integer userID);
 
     Address getDefaultAddress(Integer userID);
 }
