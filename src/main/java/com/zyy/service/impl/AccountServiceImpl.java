@@ -10,6 +10,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class AccountServiceImpl implements AccountService {
@@ -31,6 +32,7 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
+    @Transactional
     public Account createNewAccount(String username, String password, String role) {
         password = new BCryptPasswordEncoder().encode(password);
         role = role.equals("Admin") ? "Admin" : "Dealer";
@@ -42,5 +44,17 @@ public class AccountServiceImpl implements AccountService {
         } catch (DuplicateKeyException e) {
             return null;
         }
+    }
+
+    @Override
+    public Account getAccountByUserID(Integer userID) {
+        return accountMapper.getAccountByUserID(userID);
+    }
+
+    @Override
+    public Boolean changePassword(String newPassword, Integer userID) {
+        newPassword = new BCryptPasswordEncoder().encode(newPassword);
+        int num = accountMapper.changePassword(newPassword, userID);
+        return num == 1;
     }
 }

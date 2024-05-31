@@ -19,6 +19,21 @@ public class AccountTest {
     }
 
     @Test
+    public void getAccountByUserIDTest() {
+        Integer userID = 59;
+        Account account = accountMapper.getAccountByUserID(userID);
+        System.out.println(account);
+    }
+
+    @Test
+    public void changePasswordTest() {
+        String passwd = "test123";
+        Integer userID = 85;
+        int num = accountMapper.changePassword(passwd, userID);
+        System.out.println(num);
+    }
+
+    @Test
     public void createNewAccount() {
         Account account = new Account();
         account.setUsername("test1");
