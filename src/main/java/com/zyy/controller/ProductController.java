@@ -109,12 +109,14 @@ public class ProductController {
         return RestBean.failure(400, "Operation failure");
     }
 
-//    @RequestMapping("/purchase")
-//    public RestBean<String> purchase(@RequestBody PurchaseProduct purchase, HttpServletRequest request) {
-//        Account account = (Account) request.getAttribute("accountInfo");
-//        if (!(account.getRole().equals("Dealer") && account.getStatus().equals("Verified")))
-//            return RestBean.unauthorized();
-//
-//
-//    }
+    @RequestMapping("/purchase")
+    public RestBean<String> purchase(@RequestBody Order purchase, HttpServletRequest request) {
+        Account account = (Account) request.getAttribute("accountInfo");
+        if (!(account.getRole().equals("Dealer") && account.getStatus().equals("Verified")))
+            return RestBean.unauthorized();
+
+        if (productService.purchaseProduct(purchase, account.getUserID()))
+            return RestBean.success();
+        return RestBean.failure(400, "Operation failure");
+    }
 }

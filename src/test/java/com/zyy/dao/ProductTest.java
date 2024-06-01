@@ -1,5 +1,6 @@
 package com.zyy.dao;
 
+import com.zyy.entity.Order;
 import com.zyy.entity.Product;
 import com.zyy.entity.ProductDetail;
 import com.zyy.service.ProductService;
@@ -165,5 +166,21 @@ public class ProductTest {
         for (Product product : products) {
             System.out.println(product);
         }
+    }
+
+    @Test
+    public void purchaseProductTest() {
+        Integer proDetailID = 58;
+        int purchaseCnt = 10;
+        Order order = productMapper.purchaseProduct(proDetailID, purchaseCnt);
+        System.out.println(order);
+    }
+
+    @Test
+    public void purchaseHandleCntTest() {
+        Integer proDetailID = 58;
+        int purchaseCnt = 10;
+        int num = productMapper.purchaseHandleCnt(proDetailID, purchaseCnt);
+        System.out.println(num);
     }
 }

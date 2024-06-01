@@ -1,5 +1,6 @@
 package com.zyy.service;
 
+import com.zyy.entity.Order;
 import com.zyy.entity.Product;
 
 import java.util.ArrayList;
@@ -14,4 +15,6 @@ public interface ProductService {
     ArrayList<Product> getMyProductList(Integer userID);
 
     Product editVisibility(Integer productID, String option);
+
+    Boolean purchaseProduct(Order order, Integer userID);
 }

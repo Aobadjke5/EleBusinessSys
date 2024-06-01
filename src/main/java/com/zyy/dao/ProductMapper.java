@@ -1,6 +1,7 @@
 package com.zyy.dao;
 
 
+import com.zyy.entity.Order;
 import com.zyy.entity.Product;
 import com.zyy.entity.ProductDetail;
 import org.apache.ibatis.annotations.*;
@@ -100,4 +101,17 @@ public interface ProductMapper {
     @Update("UPDATE T_Product set Status = 'No' " +
             "where ProductID = #{productID};")
     int editVisibilityNo(@Param("productID")Integer productID);
+
+    @Select("SELECT * " +
+            "FROM (SELECT ProductName as productName, UserID as supplierID, " +
+            "WarehouseID as warehouseID, ProductID FROM T_Product WHERE Status = 'Yes') p " +
+            "RIGHT JOIN (SELECT ProductName as proDetailName, ProductPrice as productPrice, " +
+            "ProductImage as productImage, ProductID FROM T_ProDetail " +
+            "WHERE ProductCnt >= #{purchaseCnt} AND ProDetailID = #{proDetailID}) d " +
+            "ON p.ProductID = d.ProductID ")
+    Order purchaseProduct(@Param("proDetailID") Integer proDetailID, @Param("purchaseCnt") Integer purchaseCnt);
+
+    @Update("UPDATE T_ProDetail set ProductCnt = ProductCnt - #{purchaseCnt} " +
+            "where ProDetailID = #{proDetailID};")
+    int purchaseHandleCnt(@Param("proDetailID") Integer proDetailID, @Param("purchaseCnt") Integer purchaseCnt);
 }

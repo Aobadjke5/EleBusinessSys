@@ -1,19 +1,29 @@
 package com.zyy.service.impl;
 
+import com.zyy.dao.OrderMapper;
 import com.zyy.dao.ProductMapper;
+import com.zyy.entity.Order;
 import com.zyy.entity.Product;
 import com.zyy.entity.ProductDetail;
 import com.zyy.service.ProductService;
+import com.zyy.utils.TimestampUtils;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 
 @Service
 public class ProductServiceImpl implements ProductService {
     @Resource
     ProductMapper productMapper;
+
+    @Resource
+    OrderMapper orderMapper;
+
+    @Resource
+    TimestampUtils timestampUtils;
 
     @Override
     @Transactional
@@ -83,5 +93,27 @@ public class ProductServiceImpl implements ProductService {
             return product;
         }
         return null;
+    }
+
+    @Override
+    @Transactional
+    public Boolean purchaseProduct(Order order, Integer userID) {
+        Order newOrder = productMapper.purchaseProduct(order.getProDetailID(), order.getProductCnt());
+        if (newOrder == null)
+            return false;
+
+        if (Math.round(newOrder.getProductPrice() * order.getProductCnt() * 100.0) / 100.0 != order.getTotalPrice())
+            return false;
+
+        newOrder.setAddressID(order.getAddressID());
+        newOrder.setProductCnt(order.getProductCnt());
+        newOrder.setTotalPrice(order.getTotalPrice());
+        Timestamp createTime = timestampUtils.getTimestamp(order.getCreateTime());
+        int num = orderMapper.createNewOrder(newOrder, userID, createTime);
+
+        if (num != 1)
+            return false;
+        num = productMapper.purchaseHandleCnt(order.getProDetailID(), order.getProductCnt());
+        return num == 1;
     }
 }
