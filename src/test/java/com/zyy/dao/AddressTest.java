@@ -54,4 +54,11 @@ public class AddressTest {
         int num = addressMapper.hadAddressUsed(addressID);
         System.out.println(num);
     }
+
+    @Test
+    public void getOrderAddressInfoTest() {
+        Integer addressID = 19;
+        Address address = addressMapper.getOrderAddressInfo(addressID);
+        System.out.println(address);
+    }
 }

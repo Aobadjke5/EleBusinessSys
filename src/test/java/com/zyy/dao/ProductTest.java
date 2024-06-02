@@ -183,4 +183,12 @@ public class ProductTest {
         int num = productMapper.purchaseHandleCnt(proDetailID, purchaseCnt);
         System.out.println(num);
     }
+
+    @Test
+    public void cancelHandleCntTest() {
+        Integer proDetailID = 58;
+        int productCnt = 10;
+        int num = productMapper.cancelHandleCnt(proDetailID, productCnt);
+        System.out.println(num);
+    }
 }

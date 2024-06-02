@@ -114,4 +114,8 @@ public interface ProductMapper {
     @Update("UPDATE T_ProDetail set ProductCnt = ProductCnt - #{purchaseCnt} " +
             "where ProDetailID = #{proDetailID};")
     int purchaseHandleCnt(@Param("proDetailID") Integer proDetailID, @Param("purchaseCnt") Integer purchaseCnt);
+
+    @Update("UPDATE T_ProDetail set ProductCnt = ProductCnt + #{productCnt} " +
+            "where ProDetailID = #{proDetailID};")
+    int cancelHandleCnt(@Param("proDetailID") Integer proDetailID, @Param("productCnt") Integer productCnt);
 }

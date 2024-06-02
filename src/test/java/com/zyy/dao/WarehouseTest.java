@@ -78,4 +78,11 @@ public class WarehouseTest {
         int num = warehouseMapper.editVisibilityNo(warehouseID);
         System.out.println(num);
     }
+
+    @Test
+    public void getOrderWarehouseInfoTest() {
+        Integer warehouseID = 17;
+        Warehouse warehouse = warehouseMapper.getOrderWarehouseInfo(warehouseID);
+        System.out.println(warehouse);
+    }
 }

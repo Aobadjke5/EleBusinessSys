@@ -44,4 +44,9 @@ public interface WarehouseMapper {
     @Update("UPDATE T_Warehouse set Status = 'No' " +
             "where WarehouseID = #{warehouseID};")
     int editVisibilityNo(@Param("warehouseID")Integer warehouseID);
+
+    @Select("select WarehouseID as warehouseID, WarehouseName as warehouseName, " +
+            "WarehouseAddress as WarehouseAddress " +
+            "from T_Warehouse where WarehouseID = #{warehouseID};" )
+    Warehouse getOrderWarehouseInfo(@Param("warehouseID")Integer warehouseID);
 }

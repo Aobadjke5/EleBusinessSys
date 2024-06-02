@@ -32,4 +32,9 @@ public interface AddressMapper {
 
     @Select("SELECT count(*) from T_Order where AddressID = #{addressID};")
     int hadAddressUsed(@Param("addressID") Integer addressID);
+
+    @Select("Select AddressID as addressID, AddressDetail as addressDetail, " +
+            "PeopleName as peopleName, PeopleTel as peopleTel " +
+            "from T_Address where AddressID = #{addressID}")
+    Address getOrderAddressInfo(@Param("addressID") Integer addressID);
 }

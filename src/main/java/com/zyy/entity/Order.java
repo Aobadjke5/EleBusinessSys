@@ -1,5 +1,9 @@
 package com.zyy.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import java.sql.Timestamp;
+
 public class Order {
     private Integer orderID;
     private String productName;
@@ -8,20 +12,25 @@ public class Order {
     private Integer dealerID;
     private Integer supplierID;
     private Integer warehouseID;
-    private long createTime;
-    private long deliveryTime;
-    private long completionTime;
-    private double productPrice;
-    private int productCnt;
-    private double totalPrice;
+    private Long createTime;
+    private Timestamp createTimestamp;
+    private Long deliveryTime;
+    private Timestamp deliveryTimestamp;
+    private Long completionTime;
+    private Timestamp completionTimestamp;
+    private Double productPrice;
+    private Integer productCnt;
+    private Double totalPrice;
     private String status;
     private Integer addressID;
     private Integer proDetailID;
+    private Warehouse warehouseInfo;
+    private Address addressInfo;
 
     public Order() {
     }
 
-    public Order(Integer orderID, String productName, String productImage, String proDetailName, Integer dealerID, Integer supplierID, Integer warehouseID, long createTime, long deliveryTime, long completionTime, double productPrice, int productCnt, double totalPrice, String status, Integer addressID, Integer proDetailID) {
+    public Order(Integer orderID, String productName, String productImage, String proDetailName, Integer dealerID, Integer supplierID, Integer warehouseID, long createTime, Timestamp createTimestamp, long deliveryTime, Timestamp deliveryTimestamp, long completionTime, Timestamp completionTimestamp, double productPrice, int productCnt, double totalPrice, String status, Integer addressID, Integer proDetailID, Warehouse warehouseInfo, Address addressInfo) {
         this.orderID = orderID;
         this.productName = productName;
         this.productImage = productImage;
@@ -30,14 +39,19 @@ public class Order {
         this.supplierID = supplierID;
         this.warehouseID = warehouseID;
         this.createTime = createTime;
+        this.createTimestamp = createTimestamp;
         this.deliveryTime = deliveryTime;
+        this.deliveryTimestamp = deliveryTimestamp;
         this.completionTime = completionTime;
+        this.completionTimestamp = completionTimestamp;
         this.productPrice = productPrice;
         this.productCnt = productCnt;
         this.totalPrice = totalPrice;
         this.status = status;
         this.addressID = addressID;
         this.proDetailID = proDetailID;
+        this.warehouseInfo = warehouseInfo;
+        this.addressInfo = addressInfo;
     }
 
     public Integer getOrderID() {
@@ -96,7 +110,7 @@ public class Order {
         this.warehouseID = warehouseID;
     }
 
-    public long getCreateTime() {
+    public Long getCreateTime() {
         return createTime;
     }
 
@@ -104,7 +118,7 @@ public class Order {
         this.createTime = createTime;
     }
 
-    public long getDeliveryTime() {
+    public Long getDeliveryTime() {
         return deliveryTime;
     }
 
@@ -112,7 +126,7 @@ public class Order {
         this.deliveryTime = deliveryTime;
     }
 
-    public long getCompletionTime() {
+    public Long getCompletionTime() {
         return completionTime;
     }
 
@@ -168,6 +182,46 @@ public class Order {
         this.proDetailID = proDetailID;
     }
 
+    public Timestamp getCreateTimestamp() {
+        return createTimestamp;
+    }
+
+    public void setCreateTimestamp(Timestamp createTimestamp) {
+        this.createTimestamp = createTimestamp;
+    }
+
+    public Timestamp getDeliveryTimestamp() {
+        return deliveryTimestamp;
+    }
+
+    public void setDeliveryTimestamp(Timestamp deliveryTimestamp) {
+        this.deliveryTimestamp = deliveryTimestamp;
+    }
+
+    public Timestamp getCompletionTimestamp() {
+        return completionTimestamp;
+    }
+
+    public void setCompletionTimestamp(Timestamp completionTimestamp) {
+        this.completionTimestamp = completionTimestamp;
+    }
+
+    public Warehouse getWarehouseInfo() {
+        return warehouseInfo;
+    }
+
+    public void setWarehouseInfo(Warehouse warehouseInfo) {
+        this.warehouseInfo = warehouseInfo;
+    }
+
+    public Address getAddressInfo() {
+        return addressInfo;
+    }
+
+    public void setAddressInfo(Address addressInfo) {
+        this.addressInfo = addressInfo;
+    }
+
     @Override
     public String toString() {
         return "Order{" +
@@ -179,14 +233,19 @@ public class Order {
                 ", supplierID=" + supplierID +
                 ", warehouseID=" + warehouseID +
                 ", createTime=" + createTime +
+                ", createTimestamp=" + createTimestamp +
                 ", deliveryTime=" + deliveryTime +
+                ", deliveryTimestamp=" + deliveryTimestamp +
                 ", completionTime=" + completionTime +
+                ", completionTimestamp=" + completionTimestamp +
                 ", productPrice=" + productPrice +
                 ", productCnt=" + productCnt +
                 ", totalPrice=" + totalPrice +
                 ", status='" + status + '\'' +
                 ", addressID=" + addressID +
                 ", proDetailID=" + proDetailID +
+                ", warehouseInfo=" + warehouseInfo +
+                ", addressInfo=" + addressInfo +
                 '}';
     }
 }
