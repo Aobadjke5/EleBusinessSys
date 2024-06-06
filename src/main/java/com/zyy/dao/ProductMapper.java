@@ -34,7 +34,7 @@ public interface ProductMapper {
             "FROM T_Product p " +
             "JOIN T_User u ON p.UserID = u.UserID " +
             "JOIN T_Warehouse w ON p.WarehouseID = w.WarehouseID " +
-            "WHERE p.Status = 'Yes'")
+            "WHERE p.Status = 'Yes' AND p.ProductName LIKE CONCAT('%', #{kw}, '%') LIMIT #{size} OFFSET #{start}")
     @Results({
             @Result(property = "productID", column = "productID"),
             @Result(property = "productName", column = "productName"),
@@ -51,7 +51,14 @@ public interface ProductMapper {
             @Result(property = "warehouseInfo.warehouseAddress", column = "warehouseAddress"),
             @Result(property = "warehouseInfo.warehouseImage", column = "warehouseImage")
     })
-    ArrayList<Product> getProductList();
+    ArrayList<Product> getProductList(@Param("start") Integer start, @Param("size") Integer pageSize, @Param("kw") String keyWord);
+
+    @Select("SELECT COUNT(*) " +
+            "FROM T_Product p " +
+            "JOIN T_User u ON p.UserID = u.UserID " +
+            "JOIN T_Warehouse w ON p.WarehouseID = w.WarehouseID " +
+            "WHERE p.Status = 'Yes' AND p.ProductName LIKE CONCAT('%', #{kw}, '%')")
+    Integer getProductListCnt(@Param("kw") String keyWord);
 
     @Select("SELECT ProDetailID AS proDetailID, ProductName AS productName, ProductImage AS productImage, ProductCnt AS productCnt, ProductPrice AS productPrice " +
             "FROM T_ProDetail WHERE ProductID = #{productID}")

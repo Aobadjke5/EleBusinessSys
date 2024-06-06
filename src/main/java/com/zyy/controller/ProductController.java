@@ -19,12 +19,18 @@ public class ProductController {
 
     public static class ProductListRestBean {
         public ArrayList<Product> productList;
+        public Integer totalCnt;
 
         public ProductListRestBean() {
         }
 
         public ProductListRestBean(ArrayList<Product> productList) {
             this.productList = productList;
+        }
+
+        public ProductListRestBean(ArrayList<Product> productList, Integer totalCnt) {
+            this.productList = productList;
+            this.totalCnt = totalCnt;
         }
     }
 
@@ -62,14 +68,30 @@ public class ProductController {
         return RestBean.success(new ProductRestBean(product1));
     }
 
+    public static class RequestParam2 {
+        public Integer page;
+        public Integer pageSize;
+        public String keyWord;
+
+        public RequestParam2() {
+        }
+    }
+
     @RequestMapping("/list")
-    public RestBean<ProductListRestBean> list(HttpServletRequest request){
+    public RestBean<ProductListRestBean> list(@RequestBody RequestParam2 requestParam2, HttpServletRequest request){
         Account account = (Account) request.getAttribute("accountInfo");
         if (!(account.getRole().equals("Dealer") && account.getStatus().equals("Verified")))
             return RestBean.unauthorized();
 
-        ArrayList<Product> productLists = productService.getProductList();
-        return RestBean.success(new ProductListRestBean(productLists));
+        Integer page = requestParam2.page;
+        Integer pageSize = requestParam2.pageSize;
+        String keyWord = requestParam2.keyWord;
+
+        ArrayList<Product> productLists = productService.getProductList(keyWord, pageSize, page);
+
+        Integer cnt = productService.getProductListCnt(keyWord);
+
+        return RestBean.success(new ProductListRestBean(productLists, cnt));
     }
 
     @RequestMapping("/manageList")

@@ -162,10 +162,18 @@ public class ProductTest {
 
     @Test
     public void getProductListTest() {
-        ArrayList<Product> products = productMapper.getProductList();
+        String kw = "1";
+        ArrayList<Product> products = productMapper.getProductList(0, 24, kw);
         for (Product product : products) {
             System.out.println(product);
         }
+    }
+
+    @Test
+    public void getProductListCntTest() {
+        String kw = "1";
+        Integer cnt = productMapper.getProductListCnt(kw);
+        System.out.println(cnt);
     }
 
     @Test

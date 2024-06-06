@@ -8,7 +8,9 @@ import java.util.ArrayList;
 public interface ProductService {
     boolean createNewProduct(Product product, Integer userID);
 
-    ArrayList<Product> getProductList();
+    ArrayList<Product> getProductList(String keyWord, Integer pageSize, Integer page);
+
+    Integer getProductListCnt(String keyWord);
 
     Product editProduct(Product product);
 

@@ -57,13 +57,19 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     @Transactional
-    public ArrayList<Product> getProductList(){
-        ArrayList<Product> productLists = productMapper.getProductList();
+    public ArrayList<Product> getProductList(String keyWord, Integer pageSize, Integer page){
+        Integer start = (page - 1) * pageSize;
+        ArrayList<Product> productLists = productMapper.getProductList(start, pageSize, keyWord);
 
         for (Product productList : productLists){
             productList.setProductDetails(productMapper.getProductDetails(productList.getProductID()));
         }
         return productLists;
+    }
+
+    @Override
+    public Integer getProductListCnt(String keyWord) {
+        return productMapper.getProductListCnt(keyWord);
     }
 
     @Override
