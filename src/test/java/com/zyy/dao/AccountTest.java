@@ -1,5 +1,6 @@
 package com.zyy.dao;
 
+import com.zyy.controller.AdminController;
 import com.zyy.entity.Account;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,5 +48,16 @@ public class AccountTest {
         } catch (DuplicateKeyException e) {
             System.out.println("插入失败");
         }
+    }
+
+    @Test
+    public void createNewAdminAccountTest() {
+        AdminController.AdminInfo adminInfo = new AdminController.AdminInfo();
+        adminInfo.adminImage = "1";
+        adminInfo.adminName = "1";
+        adminInfo.adminNickname = "1";
+        String passwd = "123";
+        int num = accountMapper.createNewAdminAccount(adminInfo, passwd);
+        System.out.println(num);
     }
 }

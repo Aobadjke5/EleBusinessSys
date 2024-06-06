@@ -1,5 +1,6 @@
 package com.zyy.dao;
 
+import com.zyy.controller.AdminController;
 import com.zyy.entity.Account;
 import org.apache.ibatis.annotations.*;
 
@@ -16,6 +17,10 @@ public interface AccountMapper {
     @Insert("INSERT INTO T_User(UserName, UserPassword, Role, Status) " +
             "VALUES(#{u.username}, #{u.password}, #{u.role}, #{u.status})")
     int createNewAccount(@Param("u") Account account);
+
+    @Insert("INSERT INTO T_User(UserName, UserPassword, Role, Status, CompanyName, CompanyIcon) " +
+            "VALUES(#{u.adminName}, #{password}, 'Admin', 'Verified', #{u.adminNickname}, #{u.adminImage})")
+    int createNewAdminAccount(@Param("u")AdminController.AdminInfo adminInfo, @Param("password") String password);
 
     @Update("UPDATE T_User set UserPassword = #{password} where UserID = #{userID}")
     int changePassword(@Param("password") String password, @Param("userID") Integer userID);
