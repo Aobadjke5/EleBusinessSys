@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public interface UserService {
 
-    ArrayList<User> getList();
+    ArrayList<User> getList(String keyWord, Integer pageSize, Integer page);
 
     ArrayList<User> getWaitingList();
 

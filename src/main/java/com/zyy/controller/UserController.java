@@ -56,13 +56,26 @@ public class UserController {
         }
     }
 
+    public static class RequestParam2 {
+        public Integer page;
+        public Integer pageSize;
+        public String keyWord;
+
+        public RequestParam2() {
+        }
+    }
+
     @RequestMapping("/list")
-    public RestBean<UserListRestBean> getVerifiedUsers(HttpServletRequest request) {
+    public RestBean<UserListRestBean> getVerifiedUsers(@RequestBody RequestParam2 requestParam2,  HttpServletRequest request) {
         Account account = (Account) request.getAttribute("accountInfo");
         if (!account.getRole().equals("Admin") || !account.getStatus().equals("Verified"))
             return RestBean.unauthorized();
 
-        ArrayList<User> userList = userService.getList();
+        Integer page = requestParam2.page;
+        Integer pageSize = requestParam2.pageSize;
+        String keyWord = requestParam2.keyWord;
+
+        ArrayList<User> userList = userService.getList(keyWord, pageSize, page);
         return RestBean.success(new UserListRestBean(userList));
     }
 

@@ -27,8 +27,9 @@ public interface UserMapper {
     @Select("SELECT UserID as userID, UserName as userName, Role as role, Status as Status, " +
             "CompanyName as companyName, CompanyIcon as CompanyIcon, CompanyAddress as companyAddress, " +
             "PeopleName as peopleName, PeopleTel as peopleTel, PeopleMail as PeopleMail " +
-            "from T_User where Status = 'Verified'")
-    ArrayList<User> getUserList();
+            "from T_User where Status = 'Verified' " +
+            "AND UserName LIKE CONCAT('%', #{kw}, '%') LIMIT #{size} OFFSET #{start}")
+    ArrayList<User> getUserList(@Param("start") Integer start, @Param("size") Integer pageSize, @Param("kw") String keyWord);
 
     @Select("SELECT UserID as userID, UserName as userName, Role as role, Status as Status, " +
             "CompanyName as companyName, CompanyIcon as CompanyIcon, CompanyAddress as companyAddress, " +

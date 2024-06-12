@@ -14,8 +14,9 @@ public class UserServiceImpl implements UserService {
     private UserMapper userMapper;
 
     @Override
-    public ArrayList<User> getList() {
-        return userMapper.getUserList();
+    public ArrayList<User> getList(String keyWord, Integer pageSize, Integer page) {
+        Integer start = (page - 1) * pageSize;
+        return userMapper.getUserList(start, pageSize, keyWord);
     }
 
     @Override

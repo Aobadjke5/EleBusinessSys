@@ -49,7 +49,8 @@ public class UserTest {
 
     @Test
     public void getUserListTest() {
-        ArrayList<User> users = userMapper.getUserList();
+        String kw = "1";
+        ArrayList<User> users = userMapper.getUserList(0, 10, kw);
         for (User user : users) {
             System.out.println(user);
         }
