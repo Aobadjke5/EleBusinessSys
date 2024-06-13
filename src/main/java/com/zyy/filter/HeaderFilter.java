@@ -36,7 +36,7 @@ public class HeaderFilter implements Filter {
             String requestURI = httpServletRequest.getRequestURI();
 
             // 排除特定的URL
-            if (requestURI.startsWith("/api/img/")) {
+            if (requestURI.startsWith("/api/img/") || requestURI.equals("/api/upload")) {
                 chain.doFilter(request, response);
                 return;
             }
