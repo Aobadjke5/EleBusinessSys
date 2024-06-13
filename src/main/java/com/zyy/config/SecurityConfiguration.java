@@ -4,6 +4,7 @@ import com.zyy.advice.EncryptResponseBodyAdvice;
 import com.zyy.entity.JwtItem;
 import com.zyy.entity.RestBean;
 import com.zyy.entity.security.SecurityUser;
+import com.zyy.filter.HeaderFilter;
 import com.zyy.filter.JwtAuthorizeFilter;
 import com.zyy.utils.JwtUtils;
 import jakarta.annotation.Resource;
@@ -31,6 +32,9 @@ public class SecurityConfiguration {
 
     @Resource
     JwtAuthorizeFilter jwtAuthorizeFilter;
+
+    @Resource
+    HeaderFilter headerFilter;
 
     @Resource
     EncryptResponseBodyAdvice encryptResponseBodyAdvice;
@@ -64,6 +68,7 @@ public class SecurityConfiguration {
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 )
                 .addFilterBefore(jwtAuthorizeFilter, UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(headerFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
 
