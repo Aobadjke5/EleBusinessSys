@@ -29,7 +29,6 @@ public class HeaderFilter implements Filter {
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
             throws IOException, ServletException {
-        System.out.println(111);
         if (request instanceof HttpServletRequest) {
             HttpServletRequest httpServletRequest = (HttpServletRequest) request;
 
@@ -53,7 +52,6 @@ public class HeaderFilter implements Filter {
             if (requestURI.equals("/api/auth/login")) {
                 body = "\"" + body + "\"";
             }
-            System.out.println(requestURI + "::::Request Body: " + body);
             // 获取请求头
             String XY_time = httpServletRequest.getHeader("XY-time");
             String XY_sign = httpServletRequest.getHeader("XY-sign");
@@ -65,8 +63,6 @@ public class HeaderFilter implements Filter {
                 return ;
             }
             // 验证sign参数
-            System.out.println(requestURI + "::::Request Body2: " + body + XY_time);
-            System.out.println(requestURI + "::::Request Body3: " + encipherUtils.getMD5(body + XY_time));
 
             String md5Value = encipherUtils.getMD5(body + XY_time);
             if (!md5Value.equals(XY_sign)) {
