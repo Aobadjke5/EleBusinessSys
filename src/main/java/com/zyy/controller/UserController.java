@@ -60,6 +60,7 @@ public class UserController {
         public Integer page;
         public Integer pageSize;
         public String keyWord;
+        public String role;
 
         public RequestParam2() {
         }
@@ -74,8 +75,9 @@ public class UserController {
         Integer page = requestParam2.page;
         Integer pageSize = requestParam2.pageSize;
         String keyWord = requestParam2.keyWord;
+        String role = requestParam2.role;
 
-        ArrayList<User> userList = userService.getList(keyWord, pageSize, page);
+        ArrayList<User> userList = userService.getList(keyWord, role, pageSize, page);
         return RestBean.success(new UserListRestBean(userList));
     }
 
