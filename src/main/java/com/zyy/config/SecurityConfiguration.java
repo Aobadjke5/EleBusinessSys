@@ -1,5 +1,6 @@
 package com.zyy.config;
 
+import com.zyy.advice.EncryptResponseBodyAdvice;
 import com.zyy.entity.JwtItem;
 import com.zyy.entity.RestBean;
 import com.zyy.entity.security.SecurityUser;
@@ -30,6 +31,9 @@ public class SecurityConfiguration {
 
     @Resource
     JwtAuthorizeFilter jwtAuthorizeFilter;
+
+    @Resource
+    EncryptResponseBodyAdvice encryptResponseBodyAdvice;
 
     @Bean
     BCryptPasswordEncoder passwordEncoder() {
@@ -74,7 +78,8 @@ public class SecurityConfiguration {
         String role = user.getAccount().getRole();
         String status = user.getAccount().getStatus();
         JwtItem jwtItem = jwtUtils.createJWT(userID, username, role, status);
-        response.getWriter().write(RestBean.success(jwtItem).asJsonString());
+        Object responseBody = RestBean.success(jwtItem);
+        response.getWriter().write(encryptResponseBodyAdvice.getResponseBody(responseBody));
     }
 
     public void onAuthenticationFailure(HttpServletRequest request,
@@ -82,7 +87,8 @@ public class SecurityConfiguration {
                                         AuthenticationException exception) throws IOException, ServletException {
         response.setContentType("application/json");
         response.setCharacterEncoding("utf-8");
-        response.getWriter().write(RestBean.failure(400, "The username or password is incorrect").asJsonString());
+        Object responseBody = RestBean.failure(400, "The username or password is incorrect");
+        response.getWriter().write(encryptResponseBodyAdvice.getResponseBody(responseBody));
     }
 
     public void onLogoutSuccess(HttpServletRequest request,

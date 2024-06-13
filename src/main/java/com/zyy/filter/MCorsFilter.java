@@ -25,6 +25,6 @@ public class MCorsFilter extends HttpFilter {
     private void addCorsHeader(HttpServletRequest request, HttpServletResponse response) {
         response.addHeader("Access-Control-Allow-Origin", "*");
         response.addHeader("Access-Control-Allow-Methods", "GET, POST");
-        response.addHeader("Access-Control-Allow-Headers", "Authorization, Content-Type");
+        response.addHeader("Access-Control-Allow-Headers", "Authorization, Content-Type, XY-time, XY-sign");
     }
 }
